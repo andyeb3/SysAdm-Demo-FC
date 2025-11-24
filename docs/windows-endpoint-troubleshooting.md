@@ -44,7 +44,7 @@ Resolve-DnsName example.com
 Test-ComputerSecureChannel -Verbose
 
 # Check domain membership
-(Get-WmiObject Win32_ComputerSystem).Domain
+(Get-CimInstance Win32_ComputerSystem).Domain
 
 # Force Group Policy update
 gpupdate /force
@@ -69,10 +69,10 @@ gpupdate /force
 Get-Process | Sort-Object CPU -Descending | Select-Object -First 10
 
 # Check disk usage
-Get-WmiObject Win32_LogicalDisk | Select-Object DeviceID, FreeSpace, Size
+Get-CimInstance Win32_LogicalDisk | Select-Object DeviceID, FreeSpace, Size
 
 # Check system events
-Get-EventLog -LogName System -Newest 50
+Get-WinEvent -LogName System -MaxEvents 50
 ```
 
 ### Resolution Steps

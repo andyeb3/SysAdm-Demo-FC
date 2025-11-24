@@ -22,19 +22,17 @@ $totalMemoryGB = [math]::Round($memory.Sum / 1GB, 2)
 Write-Host "Total Physical Memory: $totalMemoryGB GB"
 
 # Get disk information
-$disks = Get-CimInstance -ClassName Win32_LogicalDisk -Filter "DriveType=3"
-foreach ($disk in $disks) {
-    $freeSpaceGB = [math]::Round($disk.FreeSpace / 1GB, 2)
-    $sizeGB = [math]::Round($disk.Size / 1GB, 2)
-    Write-Host "Drive $($disk.DeviceID) - Total: $sizeGB GB, Free: $freeSpaceGB GB"
+Get-CimInstance -ClassName Win32_LogicalDisk -Filter "DriveType=3" | ForEach-Object {
+    $freeSpaceGB = [math]::Round($_.FreeSpace / 1GB, 2)
+    $sizeGB = [math]::Round($_.Size / 1GB, 2)
+    Write-Host "Drive $($_.DeviceID) - Total: $sizeGB GB, Free: $freeSpaceGB GB"
 }
 
 # Get network adapter information
-$networkAdapters = Get-CimInstance -ClassName Win32_NetworkAdapterConfiguration -Filter "IPEnabled=True"
-foreach ($adapter in $networkAdapters) {
-    Write-Host "Network Adapter: $($adapter.Description)"
-    Write-Host "  IP Address: $($adapter.IPAddress -join ', ')"
-    Write-Host "  Subnet Mask: $($adapter.IPSubnet -join ', ')"
-    Write-Host "  Default Gateway: $($adapter.DefaultIPGateway -join ', ')"
-    Write-Host "  DNS Servers: $($adapter.DNSServerSearchOrder -join ', ')"
+Get-CimInstance -ClassName Win32_NetworkAdapterConfiguration -Filter "IPEnabled=True" | ForEach-Object {
+    Write-Host "Network Adapter: $($_.Description)"
+    Write-Host "  IP Address: $($_.IPAddress -join ', ')"
+    Write-Host "  Subnet Mask: $($_.IPSubnet -join ', ')"
+    Write-Host "  Default Gateway: $($_.DefaultIPGateway -join ', ')"
+    Write-Host "  DNS Servers: $($_.DNSServerSearchOrder -join ', ')"
 }
