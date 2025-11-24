@@ -1,0 +1,35 @@
+# Sample DHCP Scope Configuration
+# This is a sample configuration file for reference
+
+# Scope Settings
+Scope Name: Corporate LAN
+Scope Address Range: 192.168.1.100 - 192.168.1.200
+Subnet Mask: 255.255.255.0
+Lease Duration: 8 days
+
+# Exclusion Range
+Exclusion Start: 192.168.1.150
+Exclusion End: 192.168.1.160
+
+# Default Gateway (Router)
+Router: 192.168.1.1
+
+# DNS Servers
+Primary DNS: 192.168.1.10
+Secondary DNS: 192.168.1.11
+
+# Domain Name
+DNS Domain Name: example.local
+
+# WINS Servers (if applicable)
+Primary WINS: 192.168.1.10
+Secondary WINS: 192.168.1.11
+
+# Additional Options
+Option 66 (Boot Server): 192.168.1.20
+Option 67 (Boot File): boot\pxeboot.n12
+
+# Reservations
+# MAC Address          IP Address      Description
+# 00:1A:2B:3C:4D:5E    192.168.1.50    Print Server
+# 00:1A:2B:3C:4D:5F    192.168.1.51    File Server
